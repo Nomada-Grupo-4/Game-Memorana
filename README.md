@@ -2,6 +2,9 @@
 
 **Memorama** (also known as **Concentration** or **Memory**) is a classic card-matching game that tests players' memory and concentration skills. The goal is to match pairs of identical cards by flipping them over. The game ends when all pairs have been found.
 
+![Flowchart of the Memorama game](docs/state-diagram-of-the-game.jpg)
+
+
 ## 📂 Project Structure
 
 ```
