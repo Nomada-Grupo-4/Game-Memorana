@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/src/output.css">
+    
+
+
+    <!--Se agreso stilo css text-shadow para titulo-->
+    <style>
+        .sombra-texto-bg {
+        text-shadow: 1px 13px 0px rgba(250,0,0,1);
+        }
+        .sombra-texto-sm {
+        text-shadow: 0px 2px 0px rgba(250,0,0,1);
+        }
+    </style>
+
+
+</head>
+<body class="w-full h-screen bg-white grid place-items-center">
+    <p class="text-2xl">hola</p>
+
+    <!--Id de modal GAME OVER-->
+    <section id="modaL-GameOver" class="w-full h-screen fixed z-[50] text-white bg-gray-300 opacity-[50] 
+    grid place-items-center">
+        <div class="w-[40%] h-[55vh] rounded-[15px] grid place-items-center p-3 bg-green-950">
+            <div class="sombra-texto-bg font-bold flex justify-between text-8xl shadow-[0px_4px_0px-red]">
+                GAME OVER
+            </div>
+                <!--id agregado para cambiar puntos totales-->
+            <div class="sombra-texto-sm pt-[3px] border-t w-64 flex justify-between px-2">
+                <span class="leading-[2vh]">TOTAL<br>PUNTOS</span>
+                <span id="time" class="text-[3vh]">
+                    0.000
+                </span>
+            </div>
+
+                <!--id agregado para cambiar aciertos-->
+            <button id="retry" class="flex justify-center place-items-center rounded-[35px] w-[30%] 
+                            bg-yellow-400 px-4 py-1 text-black cursor-pointer">
+                        <img class="mx-[1vh] " src="/public/img/carga-de-ciclo.png" width="25px" alt="">
+                        Reintentar
+            </button>
+            <a href="#" class="flex place-items-center gap-[1vh]">
+                Compartir 
+                <img src="/public/img/fb.png" width="30px" alt="fb">
+            </a>
+            <div class="border place-items-center rounded-md w-[60%] h-[4vh] flex justify-between px-2">
+                PUNTOS
+
+                <!--id agregado para cambiar puntos-->
+                <SPAN id="points">
+                    0
+                </SPAN>
+            </div>
+            <div class="border-b w-[60%] h flex justify-between px-2">
+                TIEMPO
+
+                <!--id agregado para cambiar tiempo-->
+
+                <span id="time">
+                    00:00:06
+                </span>
+            </div>
+            <div class="border-b w-[60%] h flex justify-between px-2">
+                ACIERTOS 
+                
+                <!--id agregado para cambiar aciertos-->
+                <span id="acerts">
+                    0/12
+                </span>
+            </div>
+
+            <button id="TablaDePuestos" class="rounded-[20px] w-[30%] bg-green-900 border border-green-400 px-4 py-1 cursor-pointer">
+                - Tabla de puntuaciones
+            </button>
+        </div>
+    </section>
+
+</body>
+</html>
