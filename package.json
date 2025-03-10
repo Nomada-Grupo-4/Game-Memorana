@@ -1,0 +1,27 @@
+{
+  "name": "game-memorana",
+  "version": "1.0.0",
+  "description": "**Memorama** (also known as **Concentration** or **Memory**) is a classic card-matching game that tests players' memory and concentration skills. The goal is to match pairs of identical cards by flipping them over. The game ends when all pairs have been found.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nomada-Grupo-4/Game-Memorana.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nomada-Grupo-4/Game-Memorana/issues"
+  },
+  "homepage": "https://github.com/Nomada-Grupo-4/Game-Memorana#readme",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.0.12",
+    "tailwindcss": "^4.0.12"
+  }
+}
