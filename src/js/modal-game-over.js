@@ -1,5 +1,5 @@
 //Temporizador
-let tiempoRestante = 5;
+let tiempoRestante = 6;
 const tiempo = document.getElementById("tiempo");
 const modalGameOver = document.getElementById("modaL-GameOver");
 
@@ -7,12 +7,12 @@ let contador = null;
 
 function correrTiempo () {
     contador = setInterval(()=> {
-        if(tiempoRestante > 0){
+        if(tiempoRestante > 1){
             tiempoRestante--;
             tiempo.innerText = `${tiempoRestante}`
         } else {
             clearInterval(contador);
-           
+//Mostramos modal de GameOver
         modalGameOver.classList.remove("hidden")
         modalGameOver.classList.add("grid", "fixed", "z-[40]");
         }
@@ -32,4 +32,17 @@ function playPause(valor){
         correrTiempo();
         valor.style.background = ""
     }
+}
+
+//funcion para mostrar model cerrar juego
+function salirDeJuego(){
+    const modalSalir = document.getElementById("modalSalir");
+    modalSalir.classList.remove("hidden")
+    modalSalir.classList.add("grid", "fixed", "z-[40]");
+}
+
+function regresarJuego(){
+    const modalSalir = document.getElementById("modalSalir");
+    modalSalir.classList.remove("grid", "fixed", "z-[40]")
+    modalSalir.classList.add("hidden");  
 }
