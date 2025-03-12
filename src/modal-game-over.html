@@ -6,8 +6,6 @@
     <title>Document</title>
     <link rel="stylesheet" href="/src/output.css">
     
-
-
     <!--Se agreso stilo css text-shadow para titulo-->
     <style>
         .sombra-texto-bg {
@@ -21,11 +19,14 @@
 
 </head>
 <body class="w-full h-screen bg-white grid place-items-center">
-    <p class="text-2xl">hola</p>
+    <div onclick="playPause(this)" class="bg-white border-2 cursor-pointer border-black w-[300px] h-[300px] rounded-[30%] grid
+                place-items-center">
+        <span id="tiempo" class="text-[2rem]"></span>
+    </div>
 
-    <!--Id de modal GAME OVER-->
-    <section id="modaL-GameOver" class="w-full h-screen fixed z-[50] text-white bg-gray-300 opacity-[50] 
-    grid place-items-center">
+    <!--Id de modal GAME OVER  ** fixed z-[40] grid se agregar despise de and time-->
+    <section id="modaL-GameOver" class="w-full h-screen  min-w-[500px] hidden text-white bg-gray-300 opacity-[50] 
+    place-items-center">
         <div class="w-[40%] h-[55vh] rounded-[15px] grid place-items-center p-3 bg-green-950">
             <div class="sombra-texto-bg font-bold flex justify-between text-8xl shadow-[0px_4px_0px-red]">
                 GAME OVER
@@ -79,6 +80,6 @@
             </button>
         </div>
     </section>
-
+    <script src="/src/js/modal-game-over.js"></script>
 </body>
 </html>
