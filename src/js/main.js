@@ -46,6 +46,9 @@ function registerPlayer(){
     localStorage.setItem("playerName",playerName);
     localStorage.setItem("selectedAvatar",selectedAvatar);
 
+    //Redirige a lap página 2
+    window.location.href = "src/game.html";
+
 }
 
 document.getElementById("register-btn").addEventListener("click", registerPlayer);
