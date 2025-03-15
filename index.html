@@ -75,7 +75,30 @@
         <p class="text-white text-xs mt-2 text-center font-light">Producido por Desarrolladores Nómadas &copy; 2025</p>
     </footer>
 
-    <!-- script de la presentación -->
+    <!-- Modal de registro -->
+    <div id="modal-register" class="flex items-center justify-center min-h-screen">
+        <div class="max-w-md p-6 bg-white shadow-lg rounded-lg  shadow-green-200/50">
+            <h1 class="text-3xl text-center font-bold mb-6">Memorama</h1>
+            <div class="mb-4">
+                <label for="player-name" class="font-medium block " placeholder="Nombre">Nombre:</label>
+            <input type="text" id="player-name" class="border p-2 w-full rounded bg-gray-100" required>
+            </div>
+            <div class="mb-4">
+              <label for="player-name" class="font-medium block">Avatar:</label>
+              <div class="grid grid-cols-3 gap-4 p-2 bg-white shadow-lg rounded-lg">
+                <img src="images/boy1.jpg" class="image border-2 border-transparent w-25 h-25 rounded-lg cursor-pointer hover:border-gray-400 transition" onclick="selectImage(this)">
+                <img src="images/boy2.jpg" class="image border-2 border-transparent w-25 h-25 rounded-lg cursor-pointer hover:border-gray-400 transition" onclick="selectImage(this)">
+                <img src="images/cute1.jpg" class="image border-2 border-transparent w-25 h-25 rounded-lg cursor-pointer hover:border-gray-400 transition" onclick="selectImage(this)">
+                <img src="images/cute2.jpg" class="image border-2 border-transparent w-25 h-25 rounded-lg cursor-pointer hover:border-gray-400 transition" onclick="selectImage(this)">
+                <img src="images/girl1.jpg" class="image border-2 border-transparent w-25 h-25 rounded-lg cursor-pointer hover:border-gray-400 transition" onclick="selectImage(this)">
+                <img src="images/girl2.jpg" class="image border-2 border-transparent w-25 h-25 rounded-lg cursor-pointer hover:border-gray-400 transition" onclick="selectImage(this)">
+            </div>
+            </div>
+            <button id="openBtn" onclick="openModal()" class="w-full bg-lime-400 text-black font-semibold py-2 rounded hover:bg-lime-500">Registrar</button>
+    
+        </div>
+    </div>
+
      
 
     <script src="src/js/main.js"></script>
