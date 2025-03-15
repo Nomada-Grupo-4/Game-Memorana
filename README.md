@@ -19,9 +19,13 @@ This diagram illustrates the game's state transitions and logic.
       - 1 Jugador
       - 2 Jugadores
       - Contra la PC
+
   - Seleccionar temática del juego
+
   - Cargar imágenes según la temática seleccionada
+
   - Iniciar cronómetro individual para cada jugador
+
   - Mostrar tablero de cartas
   - Mientras queden cartas por emparejar:
     - Esperar selección de 2 cartas
