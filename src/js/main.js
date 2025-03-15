@@ -42,8 +42,13 @@ function registerPlayer(){
         return;
     }
 
+    //Guarda información en el localStorage para usarlos en la página2
+    localStorage.setItem("playerName",playerName);
+    localStorage.setItem("selectedAvatar",selectedAvatar);
 
 }
+
+document.getElementById("register-btn").addEventListener("click", registerPlayer);
 
 function selectImage(img) {
     
