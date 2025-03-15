@@ -22,3 +22,38 @@ readyBtn.addEventListener("click", function (){
     modalRegister.classList.remove("hidden");
     modalRegister.style.display = "flex";
 })
+
+
+let selectedAvatar = null;
+
+
+function registerPlayer(){
+    const playerName = document.getElementById("player-name").value.trim();
+    
+    //Validación de nombre
+    if (!playerName){
+        alert("Por favor, ingresa tu nombre.");
+        return;
+    }
+
+    //Validación de avatar
+    if (!selectedAvatar) {
+        alert("Por favor, selecciona un avatar.");
+        return;
+    }
+
+
+}
+
+function selectImage(img) {
+    
+    //No esten seleccionadas las imágenes
+    document.querySelectorAll ('.image').forEach(element =>element.classList.remove('border-yellow-500'));
+    
+    img.classList.add('border-yellow-500');
+
+    //Se guarda la imagen que seleccionó
+    selectedAvatar = img.src;
+    
+
+}
