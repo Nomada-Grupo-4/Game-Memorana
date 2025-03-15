@@ -13,38 +13,12 @@ function toggleHeaderFooter() {
 window.addEventListener("resize", toggleHeaderFooter);
 window.addEventListener("load", toggleHeaderFooter);
 
+//Obtención del Ready y el modal
+const readyBtn = document.getElementById("ready");
+const modalRegister = document.getElementById("modal-register");
 
-document.getElementById("ready").addEventListener("click", function() {
-    document.getElementById("modal-register").style.display = "block";
-    });
- 
-
-//Variable para almacenar el avatar seleccionado
-let selectedAvatar =null;
-
-function selectImage(img) {
-    // Quitar la selección de todas las imágenes
-    document.querySelectorAll('.image').forEach(el => el.classList.remove('border-blue-500'));
-
-    // Agregar borde a la imagen seleccionada
-    img.classList.add('border-blue-500');
-
-    // Guardar la imagen seleccionada
-    selectedAvatar = img.src; 
-}
-
-function openModal() {
-
-    const playerName = document.getElementById("player-name").value;
-    if (!playerName) {
-        alert("Por favor, ingresa tu nombre.");
-        return;
-    }if (!selectedAvatar) {
-        alert("Por favor, selecciona un avatar.");
-        return;
-    }
-
-    // Guardar en localStorage para que el otro HTML pueda acceder
-    localStorage.setItem("playerName", playerName);
-    localStorage.setItem("playerAvatar", selectedAvatar);
-}
+//Muestra el modal
+readyBtn.addEventListener("click", function (){
+    modalRegister.classList.remove("hidden");
+    modalRegister.style.display = "flex";
+})
