@@ -42,19 +42,5 @@ This diagram illustrates the game's state transitions and logic.
 
 
 
-## 📂 Project Structure
 
-```
-└── 📁 Game-memorama
-└── 📁 public └── 📁 audio # Game sound effects and background music
-└── 📁 img # Card images and other assets
-└── 📁 src └── 📁 css └── main.css # Styles for the game interface
-└── 📁 js └── main.js # Core game logic and interactivity
-└── index.html # Main entry point of the game
-└── LICENSE # Project license
-└── README.md # Project documentation and instructions
-
-```
-
-This structure ensures a clean separation of assets, styles, and scripts, making the game easy to maintain and expand. 🚀
 
