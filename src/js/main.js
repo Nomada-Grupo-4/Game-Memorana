@@ -17,15 +17,28 @@ window.addEventListener("load", toggleHeaderFooter);
 const readyBtn = document.getElementById("ready");
 const modalRegister = document.getElementById("modal-register");
 
-//Muestra el modal
-readyBtn.addEventListener("click", function (){
-    modalRegister.classList.remove("hidden");
-    modalRegister.style.display = "flex";
-})
+//Muestra el modal con los datos almacenados
+if (readyBtn) {
+    readyBtn.addEventListener("click", function () {
+        modalRegister.classList.remove("hidden");
+        modalRegister.style.display = "flex";
+    });
+}
 
 
 let selectedAvatar = null;
 
+function selectImage(img) {
+    
+    //No estan seleccionadas las imágenes
+    document.querySelectorAll ('.image').forEach(element =>{element.classList.remove('border-yellow-500');
+    });
+
+    img.classList.add('border-yellow-500');
+
+    //Se guarda la imagen que seleccionó
+    selectedAvatar = img.src;
+}
 
 function registerPlayer(){
     const playerName = document.getElementById("player-name").value.trim();
@@ -46,22 +59,30 @@ function registerPlayer(){
     localStorage.setItem("playerName",playerName);
     localStorage.setItem("selectedAvatar",selectedAvatar);
 
-    //Redirige a lap página 2
-    window.location.href = "src/game.html";
+    //Redirige a la página 2
+    window.location.href = "game.html";
 
 }
 
-document.getElementById("register-btn").addEventListener("click", registerPlayer);
-
-function selectImage(img) {
-    
-    //No esten seleccionadas las imágenes
-    document.querySelectorAll ('.image').forEach(element =>element.classList.remove('border-yellow-500'));
-    
-    img.classList.add('border-yellow-500');
-
-    //Se guarda la imagen que seleccionó
-    selectedAvatar = img.src;
-    
-
+const registerBtn = document.getElementById("register-btn");
+if (registerBtn) {
+    registerBtn.addEventListener("click", registerPlayer);
 }
+
+
+//game.html
+
+// Te permite ejecutar la página con el nombre y el avatar seleccionado
+document.addEventListener("DOMContentLoaded",function(){
+    const playerName =localStorage.getItem("playerName");
+    const selectedAvatar = localStorage.getItem("selectedAvatar");
+
+if (playerName && selectedAvatar) {
+    document.getElementById("playerName").textContent = playerName;
+    document.getElementById("player-avatar").src = selectedAvatar;
+} else {
+    alert("No hay datos guardados. Redirigiendo...");
+    window.location.href = "index.html";
+}
+
+});
