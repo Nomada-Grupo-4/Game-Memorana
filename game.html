@@ -1,4 +1,3 @@
-<!-- pagina2.html -->
 <!DOCTYPE html>
 <html lang="es">
 
@@ -8,44 +7,37 @@
     <title>Página Secundaria</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="src/css/main.css">
-
 </head>
 
-<body >
+<body>
 
     <div class="max-w-md mx-auto text-center p-4">
         <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            ¡Bienvenido a la página 2!
+            MEMORAMA
         </h1>
-    <!-- Modal del juego -->
-    <div id="game-modal" class="modal">
-        <div class="modal-content">
-            <h2>Listos para jugar</h2>
-            <div class="players">
-                <div class="player">
-                <img id="player-avatar" src="" alt="Avatar del jugador"
-                class="image border-2  w-20 h-20 rounded-lg border-gray-400">
-                <p id="playerName"></p>
+        <!-- Sección del jugador y la computadora -->
+        <div class="players flex flex-col items-center space-y-4">
+            <h2 class="text-2xl font-bold text-gray-800">A jugar</h2>
+            <div class="flex items-center space-x-6">
+                <div class="player text-center">
+                    <img id="player-avatar" src="" alt="Avatar del jugador"
+                        class="image border-2 w-20 h-20 rounded-lg border-gray-400">
+                    <p id="playerName" class="text-lg font-semibold mt-2"></p>
                 </div>
 
-                <div class="versus">VS</div>
-                <div class="computer">           
-                <img id="computer-avatar" class="image border-2 w-20 h-20 rounded-lg border-gray-400 " src="public/img/computadora.jpg" alt="Avatar de la Computadora"
-                >
-                <p>Computadora</p>
+                <div class="text-2xl font-bold">VS</div>
+
+                <div class="computer text-center">
+                    <img id="computer-avatar" class="image border-2 w-20 h-20 rounded-lg border-gray-400"
+                        src="public/img/computadora.jpg" alt="Avatar de la Computadora">
+                    <p class="text-lg font-semibold mt-2">Computadora</p>
                 </div>
             </div>
-            <a href="/index.html"
-            class="mt-4 px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-200">
-            Volver al inicio
-            </a>
         </div>
-        
-    </div>
     </div>
 
-    <script src="src/js/main.js" ></script>
+    <script type="module" src="src/js/game.js"></script>
+
 </body>
 
 </html>
