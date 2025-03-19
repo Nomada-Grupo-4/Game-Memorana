@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memorama - Tablero</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-image: url('ruta-de-la-imagen.jpg');
+            /* Reemplaza con la URL de tu imagen */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center min-h-screen">
+    <div class="w-full max-w-4xl bg-white/80 p-5 rounded-lg shadow-lg">
+        <h1 class="text-center text-2xl font-bold mb-4">Memorama</h1>
+        <div id="gameBoard" class="grid gap-2 sm:gap-4 p-4">
+            <!-- Aquí se generarán las cartas dinámicamente con diferentes tamaños de grilla -->
+        </div>
+    </div>
+    <script>
+        function setGridSize(difficulty) {
+            const board = document.getElementById("gameBoard");
+            board.className = `grid gap-2 sm:gap-4 p-4 grid-cols-${difficulty}`;
+        }
+    </script>
+</body>
+
+</html>

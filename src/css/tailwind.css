@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+
+/* CSS personalizado */
+/* Transición para la sección expandible */
+.transition-max-height {
+    transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, margin 0.5s ease-in-out;
+}
+
+/* Ajustes para la sección expandible en diferentes tamaños de pantalla */
+@media (min-width: 1024px) {
+    .max-h-expandable {
+        max-height: 800px !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .max-h-expandable {
+        max-height: 700px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .max-h-expandable {
+        max-height: 600px !important;
+    }
+}

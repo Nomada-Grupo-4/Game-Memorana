@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/src/asset/img/favicon.png" type="image/png">
+    <link rel="stylesheet" href="/src/css/output.css">
+    <title>Juego de Memoria</title>
+
+
+</head>
+
+<body>
+    <main class="relative min-h-screen w-full overflow-x-hidden">
+
+        <!-- IMAGEN DE FONDO  -->
+        <div class="absolute inset-0 bg-cover  bg-center z-0 "
+            style="background-image: url('/src/asset/img/fondo.webp'); filter: brightness(0.6);"></div>
+
+
+        <!-- CONTENEDOR -->
+        <div class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 md:px-8 py-8">
+            <div class="text-center max-w-3xl mx-auto mb-8">
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">Juego de Memoria</h1>
+            </div>
+
+
+            <!--BOTON DE INGRESAR Y SECCION EXPANDIBLE -->
+            <div class="w-full max-w-md">
+                <button id="toggleButton"
+                    class="w-full py-6 text-xl font-bold transition-all duration-300 bg-blue-600 hover:bg-blue-700 text-white rounded-lg flex items-center justify-center">
+                    INGRESAR
+                    <svg id="chevronIcon" xmlns="http://www.w3.org/2000/svg"
+                        class="ml-2 h-5 w-5 transition-transform duration-300" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+
+
+                <!--SECCION EXPANDIBLE-->
+                <div id="expandableSection" class="overflow-hidden transition-max-height max-h-0 opacity-0">
+                    <div class="mt-4 p-4 md:p-6 bg-white/95 backdrop-blur-sm rounded-lg shadow-lg">
+                        <div class="space-y-6">
+                            <div class="flex space-x-4">
+                                <button id="registerBtn"
+                                    class="flex-1 py-4 md:py-6 border border-gray-300 rounded-lg flex items-center justify-center hover:bg-gray-100 bg-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                    <span class="text-sm md:text-base">Registrarse</span>
+                                </button>
+                                <button id="configBtn"
+                                    class="flex-1 py-4 md:py-6 border border-gray-300 rounded-lg flex items-center justify-center hover:bg-gray-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path
+                                            d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z">
+                                        </path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                    <span class="text-sm md:text-base">Configurar</span>
+                                </button>
+                            </div>
+
+
+                            <!-- CONTENEDOR DE SCROLL PARA PANTALLAS PEQUEÑAS -->
+                            <div class="overflow-y-auto max-h-[400px] md:max-h-none">
+
+
+                                <!--SECCION DE REGISTRO(VISIBLE POR DEFECTO) -->
+                                <div id="registerSection" class="space-y-4">
+                                    <div class="space-y-2">
+                                        <label for="username1" class="block text-sm font-medium text-gray-700">Nombre de
+                                            jugador 1</label>
+                                        <input id="username1" type="text" placeholder="Ingresa tu nombre"
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    </div>
+
+                                    <!-- CAMPO PARA EL SEGUNDO JUGADOR (INICIALMENTE OCULTO) -->
+                                    <div id="player2Section" class="space-y-2 hidden">
+                                        <label for="username2" class="block text-sm font-medium text-gray-700">Nombre de
+                                            jugador 2</label>
+                                        <input id="username2" type="text"
+                                            placeholder="Ingresa el nombre del segundo jugador"
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    </div>
+
+
+                                    <!-- OPCIONES DE DIFICULTAD DEL TABLERO-->
+                                    <div class="space-y-2">
+                                        <label class="block text-sm font-medium text-gray-700">Dificultad</label>
+                                        <div class="space-y-2">
+                                            <div class="flex items-center space-x-2">
+                                                <input type="radio" id="easy" name="difficulty" value="easy"
+                                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                                                <label for="easy" class="text-sm text-gray-700">Fácil (Tablero
+                                                    4x4)</label>
+                                            </div>
+                                            <div class="flex items-center space-x-2">
+                                                <input type="radio" id="medium" name="difficulty" value="medium" checked
+                                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                                                <label for="medium" class="text-sm text-gray-700">Medio (Tablero
+                                                    6x6)</label>
+                                            </div>
+                                            <div class="flex items-center space-x-2">
+                                                <input type="radio" id="hard" name="difficulty" value="hard"
+                                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                                                <label for="hard" class="text-sm text-gray-700">Difícil (Tablero
+                                                    8x8)</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- INFORMACION SOBRE LA CONFIGURACION ACTUAL -->
+                                    <div id="currentConfig"
+                                        class="p-3 bg-blue-50 border border-blue-200 rounded-md text-sm">
+                                        <p class="font-medium text-blue-800">Configuración actual:</p>
+                                        <p class="text-blue-700">Modo: <span id="currentMode">1 Jugador</span></p>
+                                        <p class="text-blue-700">Categoría de cartas: <span
+                                                id="currentCategory">Emojis</span></p>
+                                    </div>
+
+                                    <button id="startGameBtn"
+                                        class="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-md">Comenzar
+                                        Juego</button>
+                                </div>
+
+                                <!-- SECCION DE CONFIGURACION (OCULTA POR DEFECTO) ELECCION DE JUGADORES -->
+                                <div id="configSection" class="space-y-4 hidden">
+                                    <h3 class="text-lg font-medium text-gray-900">Configuración del Juego</h3>
+
+                                    <div class="space-y-2">
+                                        <label class="block text-sm font-medium text-gray-700">Modo de Juego</label>
+                                        <div class="space-y-3">
+                                            <div
+                                                class="relative flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                                                <input type="radio" id="singlePlayer" name="gameMode"
+                                                    value="singlePlayer" checked
+                                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                                                <label for="singlePlayer"
+                                                    class="ml-3 flex flex-col cursor-pointer w-full">
+                                                    <span class="block text-sm font-medium text-gray-900">1
+                                                        Jugador</span>
+                                                    <span class="block text-sm text-gray-500">Juega solo y mejora tu
+                                                        memoria</span>
+                                                </label>
+                                            </div>
+
+                                            <div
+                                                class="relative flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                                                <input type="radio" id="twoPlayers" name="gameMode" value="twoPlayers"
+                                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                                                <label for="twoPlayers"
+                                                    class="ml-3 flex flex-col cursor-pointer w-full">
+                                                    <span class="block text-sm font-medium text-gray-900">2
+                                                        Jugadores</span>
+                                                    <span class="block text-sm text-gray-500">Compite contra un
+                                                        amigo</span>
+                                                </label>
+                                            </div>
+                                            <div
+                                                class="relative flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                                                <input type="radio" id="vsComputer" name="gameMode" value="vsComputer"
+                                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                                                <label for="vsComputer"
+                                                    class="ml-3 flex flex-col cursor-pointer w-full">
+                                                    <span class="block text-sm font-medium text-gray-900">Contra la
+                                                        PC</span>
+                                                    <span class="block text-sm text-gray-500">Desafía a la
+                                                        computadora</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    
+                                    <!-- CATEGORIA DE CARTAS  -->
+                                    <div class="space-y-2">
+                                        <label class="block text-sm font-medium text-gray-700">Categoría de
+                                            cartas</label>
+                                        <div class="grid grid-cols-3 gap-2">
+                                            <div class="relative">
+                                                <input type="radio" id="emojis" name="cardCategory" value="emojis"
+                                                    checked class="peer sr-only">
+                                                <label for="emojis"
+                                                    class="flex flex-col items-center justify-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:bg-blue-50">
+                                                    <span class="text-2xl">😀</span>
+                                                    <span class="text-xs mt-1">Emojis</span>
+                                                </label>
+                                            </div>
+                                            <div class="relative">
+                                                <input type="radio" id="animals" name="cardCategory" value="animals"
+                                                    class="peer sr-only">
+                                                <label for="animals"
+                                                    class="flex flex-col items-center justify-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:bg-blue-50">
+                                                    <span class="text-2xl">🐶</span>
+                                                    <span class="text-xs mt-1">Animales</span>
+                                                </label>
+                                            </div>
+                                            <div class="relative">
+                                                <input type="radio" id="tech" name="cardCategory" value="tech"
+                                                    class="peer sr-only">
+                                                <label for="tech"
+                                                    class="flex flex-col items-center justify-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:bg-blue-50">
+                                                    <span class="text-2xl">📱</span>
+                                                    <span class="text-xs mt-1">Tecnología</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+
+
+                                    <!-- APLICACION DE CONFIGURACION -->
+                                    <button id="applyConfigBtn"
+                                        class="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-md">Aplicar
+                                        Configuración</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="/src/js/main.js"></script>
+</body>
+
+</html>
