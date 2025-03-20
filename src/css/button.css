@@ -1,0 +1,5 @@
+@layer components {
+    .btn-custom {
+        @apply flex-1 py-4 md:py-6 border border-gray-300 rounded-lg flex items-center justify-center hover:bg-gray-100;
+    }
+}
