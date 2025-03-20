@@ -2,3 +2,6 @@
 
 .vscode
 node_modules
+
+src/css/output.css
+
