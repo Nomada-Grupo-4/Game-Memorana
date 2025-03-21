@@ -8,30 +8,23 @@ export function setupGameStart() {
         // Obtener la dificultad seleccionada
         const difficulty = document.querySelector('input[name="difficulty"]:checked').value
 
-        // Preparar el mensaje con la configuración del juego
-        let message =
-            "¡Juego iniciado!\n" +
-            "Modo: " +
-            gameState.gameMode +
-            "\n" +
-            "Dificultad: " +
-            difficulty +
-            "\n" +
-            "Categoría: " +
-            gameState.cardCategory
+        // Obtener nombres de jugadores
+        const player1 = document.getElementById("username1").value || "Jugador 1"
+        let player2 = ""
 
-        // Añadir información de los jugadores según el modo de juego
         if (gameState.gameMode === "twoPlayers") {
-            const player1 = document.getElementById("username1").value || "Jugador 1"
-            const player2 = document.getElementById("username2").value || "Jugador 2"
-            message += "\nJugador 1: " + player1 + "\nJugador 2: " + player2
-        } else {
-            const player1 = document.getElementById("username1").value || "Jugador 1"
-            message += "\nJugador: " + player1
+            player2 = document.getElementById("username2").value || "Jugador 2"
         }
 
-        // Mostrar el mensaje (en una implementación real, aquí iniciaríamos el juego)
-        alert(message)
+        // Construir la URL con los parámetros
+        let gameUrl = `game.html?mode=${gameState.gameMode}&difficulty=${difficulty}&category=${gameState.cardCategory}&player1=${encodeURIComponent(player1)}`
+
+        if (gameState.gameMode === "twoPlayers") {
+            gameUrl += `&player2=${encodeURIComponent(player2)}`
+        }
+
+        // Redirigir a la página del juego
+        window.location.href = gameUrl
     })
 }
 
