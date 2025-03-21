@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/src/asset/img/favicon.png" type="image/png">
+    <link rel="stylesheet" href="/src/css/output.css">
+    <title>Juego de Memoria - Tablero</title>
+    <style>
+        .card {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s;
+            transform-style: preserve-3d;
+        }
+
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+        }
+
+        .card-front {
+            background-color: #3b82f6;
+            transform: rotateY(180deg);
+        }
+
+        .card-back {
+            background-color: #1e40af;
+        }
+
+        .modal {
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .pulse {
+            animation: pulse 1s infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="relative min-h-screen w-full overflow-x-hidden">
+        <!-- IMAGEN DE FONDO  -->
+        <div class="absolute inset-0 bg-cover bg-center z-0"
+            style="background-image: url('/src/asset/img/fondo.webp'); filter: brightness(0.6);"></div>
+
+        <!-- CONTENEDOR PRINCIPAL -->
+        <div class="relative z-10 min-h-screen flex flex-col items-center justify-start px-4 md:px-8 py-8">
+            <div class="text-center max-w-3xl mx-auto mb-4">
+                <h1 class="text-3xl md:text-5xl font-bold text-white mb-2">Juego de Memoria</h1>
+                <div id="gameInfo" class="text-white text-lg mb-2"></div>
+            </div>
+
+            <!-- TEMPORIZADOR Y PUNTUACIÓN -->
+            <div class="w-full max-w-4xl flex flex-col md:flex-row justify-between items-center mb-4 px-4">
+                <div class="bg-white/90 backdrop-blur-sm rounded-lg p-3 mb-2 md:mb-0 w-full md:w-auto">
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        <span class="font-bold text-gray-800">Tiempo: <span id="timer" class="text-blue-600">00:00</span></span>
+                    </div>
+                </div>
+                
+                <div id="scoreContainer" class="bg-white/90 backdrop-blur-sm rounded-lg p-3 w-full md:w-auto flex justify-between md:justify-start">
+                    <div id="player1Score" class="flex items-center mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <span class="font-bold text-gray-800"><span id="player1Name">Jugador 1</span>: <span id="player1Points" class="text-blue-600">0</span></span>
+                    </div>
+                    
+                    <div id="player2Score" class="flex items-center hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <span class="font-bold text-gray-800"><span id="player2Name">Jugador 2</span>: <span id="player2Points" class="text-red-600">0</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABLERO DE JUEGO -->
+            <div id="gameBoard" class="w-full max-w-4xl bg-white/80 backdrop-blur-sm rounded-lg p-4 grid gap-2 md:gap-4"></div>
+        </div>
+
+        <!-- MODAL DE VICTORIA -->
+        <div id="victoryModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black/70 opacity-0 pointer-events-none">
+            <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4 text-center">
+                <div class="w-20 h-20 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">¡Victoria!</h2>
+                <p id="victoryMessage" class="text-gray-700 mb-6">¡Has completado el juego con éxito!</p>
+                <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                    <button id="playAgainBtn" class="flex-1 py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-md">Jugar de nuevo</button>
+                    <button id="backToMenuBtn" class="flex-1 py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md">Volver al menú</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL DE DERROTA -->
+        <div id="gameOverModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black/70 opacity-0 pointer-events-none">
+            <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4 text-center">
+                <div class="w-20 h-20 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-red-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="15" y1="9" x2="9" y2="15"></line>
+                        <line x1="9" y1="9" x2="15" y2="15"></line>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">¡Tiempo agotado!</h2>
+                <p id="gameOverMessage" class="text-gray-700 mb-6">No has podido completar el juego a tiempo.</p>
+                <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                    <button id="tryAgainBtn" class="flex-1 py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-md">Intentar de nuevo</button>
+                    <button id="backToMenuBtnGameOver" class="flex-1 py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md">Volver al menú</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="/src/js/game.js"></script>
+</body>
+
+</html>
+
