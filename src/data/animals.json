@@ -2,68 +2,27 @@
   "images": [
     {
       "id": 1,
-      "url": "https://raw.githubusercontent.com/usuario/memorama-assets/main/animals/animal-1.png"
+      "url": "https://yaquitadeveloper.github.io/mi-galeria/imagenes/animales/animal1.webp"
     },
     {
       "id": 2,
-      "url": "https://raw.githubusercontent.com/usuario/memorama-assets/main/animals/animal-2.png"
+      "url": "https://yaquitadeveloper.github.io/mi-galeria/imagenes/animales/animal2.webp"
     },
     {
       "id": 3,
-      "url": "https://raw.githubusercontent.com/usuario/memorama-assets/main/animals/animal-3.png"
+      "url": "https://yaquitadeveloper.github.io/mi-galeria/imagenes/animales/animal3.webp"
     },
     {
       "id": 4,
-      "url": "https://raw.githubusercontent.com/usuario/memorama-assets/main/animals/animal-4.png"
+      "url": "https://yaquitadeveloper.github.io/mi-galeria/imagenes/animales/animal4.webp"
     },
     {
       "id": 5,
-      "url": "https://raw.githubusercontent.com/usuario/memorama-assets/main/animals/animal-5.png"
+      "url": "https://yaquitadeveloper.github.io/mi-galeria/imagenes/animales/animal5.webp"
     },
     {
       "id": 6,
-      "url": "https://raw.githubusercontent.com/usuario/memorama-assets/main/animals/animal-6.png"
-    },
-    {
-      "id": 7,
-      "url": "https://raw.githubusercontent.com/usuario/memorama-assets/main/animals/animal-7.png"
-    },
-    {
-      "id": 8,
-      "url": "https://raw.githubusercontent.com/usuario/memorama-assets/main/animals/animal-8.png"
-    },
-    {
-      "id": 9,
-      "url": "https://raw.githubusercontent.com/usuario/memorama-assets/main/animals/animal-9.png"
-    },
-    {
-      "id": 10,
-      "url": "https://raw.githubusercontent.com/usuario/memorama-assets/main/animals/animal-10.png"
-    },
-    {
-      "id": 11,
-      "url": "https://raw.githubusercontent.com/usuario/memorama-assets/main/animals/animal-11.png"
-    },
-    {
-      "id": 12,
-      "url": "https://raw.githubusercontent.com/usuario/memorama-assets/main/animals/animal-12.png"
-    },
-    {
-      "id": 13,
-      "url": "https://raw.githubusercontent.com/usuario/memorama-assets/main/animals/animal-13.png"
-    },
-    {
-      "id": 14,
-      "url": "https://raw.githubusercontent.com/usuario/memorama-assets/main/animals/animal-14.png"
-    },
-    {
-      "id": 15,
-      "url": "https://raw.githubusercontent.com/usuario/memorama-assets/main/animals/animal-15.png"
-    },
-    {
-      "id": 16,
-      "url": "https://raw.githubusercontent.com/usuario/memorama-assets/main/animals/animal-16.png"
+      "url": "https://yaquitadeveloper.github.io/mi-galeria/imagenes/animales/animal6.webp"
     }
   ]
 }
-
