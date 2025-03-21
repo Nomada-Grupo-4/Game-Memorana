@@ -1,7 +1,10 @@
+// Archivo principal del juego que importa y coordina todos los módulos
 import { getTimeLimit, startTimer, updateTimer } from "./modules/timer.js"
 import { setupModalButtons } from "./modules/modals.js"
 import { setupGameInfo, updateCurrentPlayerIndicator } from "./modules/gameUI.js"
-import { setupGameBoard, flipCard as flipCardFunc } from "./modules/gameBoard.js"
+import { setupGameBoard } from "./modules/gameBoard.js"
+import { loadCardImages } from "./modules/cardLoader.js"
+import { computerPlay } from "./modules/computerAI.js"
 import { gameState } from "./modules/gameState.js"
 
 // Inicializar el juego cuando el DOM esté cargado
@@ -31,6 +34,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Configurar los botones de los modales
   setupModalButtons()
+
+  // Si el modo es contra la computadora y el jugador inicial es la computadora, hacer que juegue
+  if (gameState.gameMode === "vsComputer" && gameState.currentPlayer === 2) {
+    setTimeout(() => {
+      computerPlay()
+    }, 1000)
+  }
 })
 
 // Reiniciar el juego
@@ -49,16 +59,19 @@ export function restartGame() {
   updateCurrentPlayerIndicator()
 
   // Recargar las cartas
-  const gameBoard = document.getElementById("gameBoard")
-  gameBoard.innerHTML = ""
-  import("./modules/cardLoader.js").then((module) => {
-    module.loadCardImages()
-  })
+  loadCardImages()
 
   // Reiniciar el temporizador
   gameState.timeLeft = getTimeLimit()
   updateTimer()
   startTimer()
+
+  // Si el modo es contra la computadora y el jugador inicial es la computadora, hacer que juegue
+  if (gameState.gameMode === "vsComputer" && gameState.currentPlayer === 2) {
+    setTimeout(() => {
+      computerPlay()
+    }, 1000)
+  }
 }
 
 // Volver al menú principal
@@ -66,5 +79,6 @@ export function goToMenu() {
   window.location.href = "index.html"
 }
 
-export { flipCardFunc as flipCard }
+// Exportar la función computerPlay para que pueda ser usada en otros módulos
+export { computerPlay }
 

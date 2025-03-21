@@ -1,5 +1,5 @@
 // Módulo para manejar el tablero de juego
-import { gameState } from "../game.js"
+import { gameState } from "./gameState.js"
 import { loadCardImages } from "./cardLoader.js"
 import { showVictoryModal } from "./modals.js"
 import { updateCurrentPlayerIndicator } from "./gameUI.js"
@@ -37,19 +37,24 @@ export function setupGameBoard() {
 
 // Función para voltear una carta
 export function flipCard(card) {
+  console.log("Intentando voltear carta:", card.dataset.index)
+
   // Si ya está procesando una jugada, está volteada o ya está emparejada, no hacer nada
   if (gameState.isProcessing || gameState.flippedCards.includes(card) || card.classList.contains("matched")) {
+    console.log("No se puede voltear la carta (procesando, ya volteada o emparejada)")
     return
   }
 
   // Si es el turno de la computadora y estamos en modo vs Computadora, no permitir voltear
   if (gameState.gameMode === "vsComputer" && gameState.currentPlayer === 2) {
+    console.log("Es el turno de la computadora, el jugador no puede voltear")
     return
   }
 
   // Voltear la carta
   card.classList.add("flipped")
   gameState.addFlippedCard(card)
+  console.log("Carta volteada:", card.dataset.index)
 
   // Guardar la carta en la memoria de la computadora
   if (gameState.gameMode === "vsComputer") {
@@ -61,6 +66,7 @@ export function flipCard(card) {
   // Si ya hay dos cartas volteadas, verificar si son iguales
   if (gameState.flippedCards.length === 2) {
     gameState.isProcessing = true
+    console.log("Dos cartas volteadas, verificando si son iguales")
 
     // Verificar si las cartas son iguales
     const card1 = gameState.flippedCards[0]
@@ -68,15 +74,21 @@ export function flipCard(card) {
 
     if (card1.dataset.imageId === card2.dataset.imageId) {
       // Las cartas son iguales
+      console.log("Las cartas son iguales")
       setTimeout(() => {
         card1.classList.add("matched")
         card2.classList.add("matched")
 
         // Actualizar puntuación
         gameState.incrementPlayerPoints(gameState.currentPlayer)
+        console.log(
+          `Jugador ${gameState.currentPlayer} incrementa puntos:`,
+          gameState.currentPlayer === 1 ? gameState.player1Points : gameState.player2Points,
+        )
 
         // Incrementar el contador de pares encontrados
         gameState.incrementMatchedPairs()
+        console.log("Pares encontrados:", gameState.matchedPairs, "de", gameState.totalPairs)
 
         // Reiniciar para la siguiente jugada
         gameState.clearFlippedCards()
@@ -84,15 +96,18 @@ export function flipCard(card) {
 
         // Verificar si se han encontrado todos los pares
         if (gameState.matchedPairs === gameState.totalPairs) {
+          console.log("¡Juego completado!")
           clearInterval(gameState.timer)
           showVictoryModal()
         } else if (gameState.gameMode === "vsComputer" && gameState.currentPlayer === 2) {
           // Si la computadora acierta, sigue jugando
+          console.log("La computadora acierta, sigue jugando")
           setTimeout(() => computerPlay(), gameState.computerDelay)
         }
       }, 500)
     } else {
       // Las cartas no son iguales
+      console.log("Las cartas no son iguales")
       setTimeout(() => {
         card1.classList.remove("flipped")
         card2.classList.remove("flipped")
@@ -100,10 +115,12 @@ export function flipCard(card) {
         // Cambiar de jugador si estamos en modo de 2 jugadores o vs Computadora
         if (gameState.gameMode === "twoPlayers" || gameState.gameMode === "vsComputer") {
           gameState.toggleCurrentPlayer()
+          console.log("Cambio de jugador, ahora es el turno del jugador", gameState.currentPlayer)
           updateCurrentPlayerIndicator()
 
           // Si es el turno de la computadora, hacer que juegue
           if (gameState.gameMode === "vsComputer" && gameState.currentPlayer === 2) {
+            console.log("Ahora es el turno de la computadora")
             setTimeout(() => computerPlay(), gameState.computerDelay)
           }
         }
@@ -121,7 +138,7 @@ export function shuffleArray(array) {
   const newArray = [...array]
   for (let i = newArray.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
-    ;[newArray[i], newArray[j]] = [newArray[j], newArray[i]]
+      ;[newArray[i], newArray[j]] = [newArray[j], newArray[i]]
   }
   return newArray
 }

@@ -1,7 +1,7 @@
 // Módulo para cargar las imágenes de las cartas
-import { gameState } from "../game.js"
+import { gameState } from "./gameState.js"
 import { shuffleArray } from "./gameBoard.js"
-import { flipCard } from "../game.js"
+import { flipCard } from "./gameBoard.js"
 
 // Cargar las imágenes de las cartas desde el JSON
 export function loadCardImages() {

@@ -1,5 +1,5 @@
 // Módulo para manejar la interfaz de usuario del juego
-import { gameState } from "../game.js"
+import { gameState } from "./gameState.js"
 
 // Configurar la información del juego
 export function setupGameInfo() {
@@ -20,6 +20,7 @@ export function setupGameInfo() {
     player2NameElement.textContent = "Computadora"
     player2Score.classList.remove("hidden")
     infoText = `Modo: Contra la PC | ${infoText}`
+    console.log("Modo de juego contra la computadora configurado")
   } else {
     infoText = `Modo: 1 Jugador | ${infoText}`
   }
@@ -66,9 +67,11 @@ export function updateCurrentPlayerIndicator() {
   if (gameState.currentPlayer === 1) {
     player1Score.classList.add("pulse")
     player2Score.classList.remove("pulse")
+    console.log("Indicador visual: turno del jugador 1")
   } else {
     player1Score.classList.remove("pulse")
     player2Score.classList.add("pulse")
+    console.log("Indicador visual: turno del jugador 2 (o computadora)")
   }
 }
 

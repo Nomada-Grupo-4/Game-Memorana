@@ -1,5 +1,5 @@
 // Módulo para manejar el temporizador
-import { gameState } from "../game.js"
+import { gameState } from "./gameState.js"
 import { showGameOverModal } from "./modals.js"
 
 // Obtener el límite de tiempo según la dificultad

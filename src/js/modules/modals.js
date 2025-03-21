@@ -1,5 +1,5 @@
 // Módulo para manejar los modales
-import { gameState } from "../game.js"
+import { gameState } from "./gameState.js"
 import { restartGame, goToMenu } from "../game.js"
 
 // Mostrar el modal de victoria
