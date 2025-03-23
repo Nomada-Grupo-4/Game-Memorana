@@ -56,6 +56,24 @@ export function showGameOverModal() {
   gameOverModal.classList.remove("pointer-events-none")
 }
 
+// Mostrar el modal de confirmación de salida
+export function showExitConfirmModal() {
+  const exitConfirmModal = document.getElementById("exitConfirmModal")
+
+  // Mostrar el modal
+  exitConfirmModal.classList.add("opacity-100")
+  exitConfirmModal.classList.remove("pointer-events-none")
+}
+
+// Ocultar el modal de confirmación de salida
+export function hideExitConfirmModal() {
+  const exitConfirmModal = document.getElementById("exitConfirmModal")
+
+  // Ocultar el modal
+  exitConfirmModal.classList.remove("opacity-100")
+  exitConfirmModal.classList.add("pointer-events-none")
+}
+
 // Configurar los botones de los modales
 export function setupModalButtons() {
   // Botones del modal de victoria
@@ -65,5 +83,12 @@ export function setupModalButtons() {
   // Botones del modal de game over
   document.getElementById("tryAgainBtn").addEventListener("click", restartGame)
   document.getElementById("backToMenuBtnGameOver").addEventListener("click", goToMenu)
+
+  // Botón de salir
+  document.getElementById("exitButton").addEventListener("click", showExitConfirmModal)
+
+  // Botones del modal de confirmación de salida
+  document.getElementById("confirmExitBtn").addEventListener("click", goToMenu)
+  document.getElementById("cancelExitBtn").addEventListener("click", hideExitConfirmModal)
 }
 

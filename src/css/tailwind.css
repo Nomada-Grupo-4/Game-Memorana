@@ -89,3 +89,59 @@
 .pulse {
     animation: pulse 1s infinite;
 }
+
+/* Asegurar que el contenido principal ocupe toda la altura disponible sin desplazamiento */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    overflow: auto;
+}
+
+main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+#gameBoard {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 800px;
+    display: grid;
+    gap: 8px;
+    padding: 10px;
+}
+
+/* Asegurar que las cartas mantengan su proporción */
+.card {
+    width: 100%;
+    aspect-ratio: 1/1;
+}
+
+/* Ajustar tamaños para diferentes dispositivos */
+@media (max-width: 640px) {
+    .game-container {
+        padding: 5px;
+    }
+
+    #gameBoard {
+        gap: 5px;
+        padding: 5px;
+    }
+}
+
+/* Botón de salir */
+.exit-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 20;
+}

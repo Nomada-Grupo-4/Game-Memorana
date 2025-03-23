@@ -27,25 +27,11 @@ export function loadCardImages() {
 
 // Preparar las imágenes para las cartas
 function prepareCardImages(images) {
-  let gridSize
-
-  // Determinar el tamaño del tablero según la dificultad
-  switch (gameState.difficulty) {
-    case "easy":
-      gridSize = 4
-      break
-    case "medium":
-      gridSize = 6
-      break
-    case "hard":
-      gridSize = 8
-      break
-    default:
-      gridSize = 6
-  }
-
   // Calcular cuántas imágenes necesitamos (la mitad del total de cartas)
-  const neededPairs = (gridSize * gridSize) / 2
+  const totalCards = gameState.gridCols * gameState.gridRows
+  const neededPairs = totalCards / 2
+
+  console.log(`Preparando imágenes: Necesitamos ${neededPairs} pares para un tablero de ${totalCards} cartas`)
 
   // Si no hay suficientes imágenes, usar las que hay y repetir si es necesario
   let selectedImages = []
@@ -56,7 +42,11 @@ function prepareCardImages(images) {
   }
 
   // Duplicar las imágenes para crear pares
-  let cardImages = [...selectedImages, ...selectedImages]
+  let cardImages = []
+  selectedImages.forEach((img) => {
+    cardImages.push({ ...img })
+    cardImages.push({ ...img })
+  })
 
   // Mezclar las cartas
   cardImages = shuffleArray(cardImages)
@@ -68,22 +58,9 @@ function prepareCardImages(images) {
 // Crear las cartas con las imágenes cargadas
 function createCards(cardImages) {
   const gameBoard = document.getElementById("gameBoard")
-  let gridSize
 
-  // Determinar el tamaño del tablero según la dificultad
-  switch (gameState.difficulty) {
-    case "easy":
-      gridSize = 4
-      break
-    case "medium":
-      gridSize = 6
-      break
-    case "hard":
-      gridSize = 8
-      break
-    default:
-      gridSize = 6
-  }
+  // Configurar el estilo del tablero según el tamaño
+  gameBoard.style.gridTemplateColumns = `repeat(${gameState.gridCols}, 1fr)`
 
   // Crear el HTML para cada carta
   gameBoard.innerHTML = ""
@@ -91,32 +68,16 @@ function createCards(cardImages) {
 
   cardImages.forEach((image, index) => {
     const card = document.createElement("div")
-    card.className = "card aspect-square cursor-pointer"
+    card.className = "card"
     card.dataset.index = index
     card.dataset.imageId = image.id || index % (cardImages.length / 2)
 
-    // Calcular el tamaño de la carta según la dificultad
-    let cardSize
-    switch (gameState.difficulty) {
-      case "easy":
-        cardSize = "h-[70px] md:h-[100px]"
-        break
-      case "medium":
-        cardSize = "h-[60px] md:h-[80px]"
-        break
-      case "hard":
-        cardSize = "h-[45px] md:h-[65px]"
-        break
-      default:
-        cardSize = "h-[60px] md:h-[80px]"
-    }
-
     card.innerHTML = `
             <div class="card-inner w-full h-full">
-                <div class="card-front ${cardSize} bg-white flex items-center justify-center">
-                    ${image.url ? `<img src="${image.url}" alt="Card" class="max-w-full max-h-full p-1">` : `<span class="text-4xl">${image.emoji || "?"}</span>`}
+                <div class="card-front bg-white flex items-center justify-center">
+                    ${image.url ? `<img src="${image.url}" alt="Card" class="max-w-[80%] max-h-[80%]">` : `<span class="text-4xl">${image.emoji || "?"}</span>`}
                 </div>
-                <div class="card-back ${cardSize} flex items-center justify-center">
+                <div class="card-back flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"></circle>
                         <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
@@ -133,35 +94,55 @@ function createCards(cardImages) {
     gameBoard.appendChild(card)
     gameState.cards.push(card)
   })
+
+  // Ajustar el tamaño del tablero para dispositivos móviles
+  adjustBoardSize()
+
+  // Escuchar cambios en el tamaño de la ventana
+  window.addEventListener("resize", adjustBoardSize)
+}
+
+// Función para ajustar el tamaño del tablero
+function adjustBoardSize() {
+  const gameBoard = document.getElementById("gameBoard")
+  const windowWidth = window.innerWidth
+  const windowHeight = window.innerHeight
+
+  // Calcular el tamaño máximo que puede tener el tablero
+  const headerHeight = 150 // Altura aproximada del encabezado
+  const maxBoardHeight = windowHeight - headerHeight - 40 // 40px de margen
+
+  // Limitar el ancho máximo del tablero
+  const maxBoardWidth = Math.min(windowWidth - 40, 800) // 40px de margen, máximo 800px
+
+  // Establecer el ancho del tablero
+  gameBoard.style.maxWidth = `${maxBoardWidth}px`
+
+  // Ajustar el tamaño de las cartas para dispositivos móviles
+  if (windowWidth < 640) {
+    gameBoard.style.gap = "4px"
+    gameBoard.style.padding = "4px"
+  } else {
+    gameBoard.style.gap = "8px"
+    gameBoard.style.padding = "10px"
+  }
 }
 
 // Crear cartas con imágenes de respaldo en caso de error
 export function createCardsWithFallback() {
-  let gridSize
-
-  // Determinar el tamaño del tablero según la dificultad
-  switch (gameState.difficulty) {
-    case "easy":
-      gridSize = 4
-      break
-    case "medium":
-      gridSize = 6
-      break
-    case "hard":
-      gridSize = 8
-      break
-    default:
-      gridSize = 6
-  }
-
   // Calcular cuántas imágenes necesitamos (la mitad del total de cartas)
-  const neededPairs = (gridSize * gridSize) / 2
+  const totalCards = gameState.gridCols * gameState.gridRows
+  const neededPairs = totalCards / 2
 
   // Crear un array con números del 1 al número de pares necesarios
   const cardValues = Array.from({ length: neededPairs }, (_, i) => i + 1)
 
   // Duplicar los valores para crear pares
-  let allCardValues = [...cardValues, ...cardValues]
+  let allCardValues = []
+  cardValues.forEach((value) => {
+    allCardValues.push(value)
+    allCardValues.push(value)
+  })
 
   // Mezclar las cartas
   allCardValues = shuffleArray(allCardValues)
@@ -171,112 +152,17 @@ export function createCardsWithFallback() {
     let emoji
     switch (gameState.cardCategory) {
       case "animals":
-        emoji = [
-          "🐶",
-          "🐱",
-          "🐭",
-          "🐹",
-          "🐰",
-          "🦊",
-          "🐻",
-          "🐼",
-          "🐨",
-          "🐯",
-          "🦁",
-          "🐮",
-          "🐷",
-          "🐸",
-          "🐵",
-          "🐔",
-          "🐧",
-          "🐦",
-          "🦆",
-          "🦅",
-          "🦉",
-          "🦇",
-          "🐺",
-          "🐗",
-          "🐴",
-          "🦄",
-          "🐝",
-          "🐛",
-          "🦋",
-          "🐌",
-          "🐞",
-          "🐜",
-        ][value % 32]
+        emoji = ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐨", "🐯", "🦁", "🐮", "🐷", "🐸", "🐵", "🐔"][
+          value % 16
+        ]
         break
       case "tech":
-        emoji = [
-          "📱",
-          "💻",
-          "⌨️",
-          "🖥️",
-          "🖨️",
-          "🖱️",
-          "💽",
-          "💾",
-          "💿",
-          "📀",
-          "🎮",
-          "🎧",
-          "📷",
-          "📹",
-          "🔋",
-          "🔌",
-          "📺",
-          "📻",
-          "⏰",
-          "🔍",
-          "🔭",
-          "🔬",
-          "📡",
-          "🛰️",
-          "📠",
-          "📟",
-          "📞",
-          "☎️",
-          "📲",
-          "📓",
-          "📔",
-          "📕",
-        ][value % 32]
+        emoji = ["📱", "💻", "⌨️", "🖥️", "🖨️", "🖱️", "💽", "💾", "💿", "📀", "🎮", "🎧", "📷", "📹", "🔋", "🔌"][value % 16]
         break
       default: // emojis
-        emoji = [
-          "😀",
-          "😃",
-          "😄",
-          "😁",
-          "😆",
-          "😅",
-          "😂",
-          "🤣",
-          "😊",
-          "😇",
-          "🙂",
-          "🙃",
-          "😉",
-          "😌",
-          "😍",
-          "🥰",
-          "😘",
-          "😗",
-          "😙",
-          "😚",
-          "😋",
-          "😛",
-          "😝",
-          "😜",
-          "🤪",
-          "🤨",
-          "🧐",
-          "🤓",
-          "😎",
-          "🤩",
-          "🥳",
-          "😏",
-        ][value % 32]
+        emoji = ["😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇", "🙂", "🙃", "😉", "😌", "😍", "🥰"][
+          value % 16
+        ]
     }
 
     return {

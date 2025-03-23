@@ -29,6 +29,11 @@ export const gameState = {
   computerDelay: 1000,
   lastRevealedCards: [],
 
+  // Propiedades del tablero
+  gridCols: 4,
+  gridRows: 3,
+  hasSingleCard: false,
+
   // Métodos para la página de inicio
   init() {
     // Inicializar el estado del juego para la página de inicio

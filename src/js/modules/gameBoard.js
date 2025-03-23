@@ -8,28 +8,39 @@ import { computerPlay } from "./computerAI.js"
 // Configurar el tablero según la dificultad
 export function setupGameBoard() {
   const gameBoard = document.getElementById("gameBoard")
-  let gridSize
+  let gridCols, gridRows
 
   // Configurar el tamaño del tablero según la dificultad
   switch (gameState.difficulty) {
     case "easy":
-      gridSize = 4 // 4x4 = 16 cartas (8 pares)
+      gridCols = 4 // 3x4 = 12 cartas (6 pares)
+      gridRows = 3
       break
     case "medium":
-      gridSize = 6 // 6x6 = 36 cartas (18 pares)
+      gridCols = 4 // 4x4 = 16 cartas (8 pares)
+      gridRows = 4
       break
     case "hard":
-      gridSize = 8 // 8x8 = 64 cartas (32 pares)
+      gridCols = 5 // 4x5 = 20 cartas (10 pares)
+      gridRows = 4
       break
     default:
-      gridSize = 6
+      gridCols = 4
+      gridRows = 3
   }
 
   // Configurar el estilo del tablero según el tamaño
-  gameBoard.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`
+  gameBoard.style.gridTemplateColumns = `repeat(${gridCols}, 1fr)`
 
   // Calcular el número total de pares
-  gameState.totalPairs = (gridSize * gridSize) / 2
+  gameState.totalPairs = (gridCols * gridRows) / 2
+  gameState.hasSingleCard = false
+
+  // Guardar las dimensiones del tablero
+  gameState.gridCols = gridCols
+  gameState.gridRows = gridRows
+
+  console.log(`Tablero configurado: ${gridCols}x${gridRows}, Total de pares: ${gameState.totalPairs}`)
 
   // Cargar las imágenes de las cartas
   loadCardImages()
