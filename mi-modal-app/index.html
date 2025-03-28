@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/src/styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/style.css" />
     <title>Vite App</title>
 </head>
 <body class="bg-gray-300 h-screen flex items-center justify-center">
@@ -16,10 +17,14 @@
 
     <!-- Modal (hidden por defecto) -->
     <div id="myModal" class="fixed inset-0 z-50 hidden">
-        <div class="bg-white rounded-3xl shadow-xl w-full max-w-4xl mx-4 h-[80vh] min-h-[500px] overflow-y-auto p-4 flex flex-col">
+        <div class="bg-white rounded-3xl border-4 border-red-400 border-dashed shadow-xl w-full max-w-4xl mx-4 h-[80vh] min-h-[500px] overflow-y-auto p-4 flex flex-col">
+
+            <!--fondo del modal-->
+            <div class="modal-background"></div>
+
             <!-- Encabezado del modal -->
             <div class="flex justify-between items-center px-6 pt-6 pb-10">
-                <h3 class="text-4xl font-bold font-serif text-gray-800 flex-grow text-center">Ranking total score</h3>
+                <h3 class="text-4xl font-bold font-serif text-gray-800 flex-grow text-center retro-title">Ranking total score</h3>
                 <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 active:scale-120 transform transition">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -29,12 +34,17 @@
             
             <!-- Cuerpo del modal -->
             <div class="p-6 flex-grow overflow-y-auto">
-                <div class="grid grid-cols-3 gap-4 text-center font-semibold text-lg bg-gray-100 p-2 rounded-t-lg">
+                <div class="grid grid-cols-3 gap-4 text-center font-semibold text-lg bg-amber-100 p-2 rounded-t-lg">
                     <div>Top Position</div>
                     <div>User's Name</div>
                     <div>Total Points</div>
                 </div>
-                <div class="grid grid-cols-3 gap-4 text-center border-gray-300 p-2">
+
+                <div class="ranking-container">
+                    <!--aqui se insertaran los datos del ranking dinamico-->
+                </div>
+
+                <!-- <div class="grid grid-cols-3 gap-4 text-center border-gray-300 p-2">
                         <div class="flex items-center justify-center">
                             <img src="/1erPuesto.png" alt="primer puesto" class="h-14 w-14">
                         </div>
@@ -65,11 +75,11 @@
                     <div>John Doe</div>
                     <div>1100</div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Pie del modal -->
             <div class="flex justify-center sticky bg-gray-50 px-6 py-12 rounded-b-lg m-auto">
-                <button onclick="menu()" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 focus:outline-2 focus:outline-offset-2 focus:outline-blue-500 active:bg-blue-700 active:scale-90 transform transition text-white font-bold rounded-lg">
+                <button onclick="menu()" class="button-text cursor-pointer px-4 py-2 bg-amber-400 shadow-lg shadow-amber-500/70 hover:bg-amber-500 focus:outline-2 focus:outline-offset-2 focus:outline-amber-400 active:bg-amber-500 active:translate-y-[-6px] transition transform text-white rounded-lg">
                     RETURN TO HOME
                 </button>
             </div>
